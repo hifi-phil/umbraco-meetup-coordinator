@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model MeetupTalk {
+  id                Int      @id @default(autoincrement())
+  content           MeetupContent   @relation(fields: [contentId], references: [id])
+  contentId         Int
+  speakerName       String
+  speakerCompany    String
+  title             String
+  description       String
+}
+
+model MeetupDescription {
+  id                Int      @id @default(autoincrement())
+  content           MeetupContent   @relation(fields: [contentId], references: [id])
+  contentId         Int @unique
+  text              String
+}
+
+model MeetupImage {
+  id                Int      @id @default(autoincrement())
+  content           MeetupContent   @relation(fields: [contentId], references: [id])
+  contentId         Int @unique
+  imageUrl       String?
+  imagePrompt    String
+}
+
+model MeetupEmail {
+  id                Int      @id @default(autoincrement())
+  content           MeetupContent   @relation(fields: [contentId], references: [id])
+  contentId         Int @unique
+  message           String
+}
+
+model MeetupShortMessage {
+  id                Int      @id @default(autoincrement())
+  content           MeetupContent   @relation(fields: [contentId], references: [id])
+  contentId         Int @unique
+  messages          String[]
+}
+
+model MeetupLongMessage {
+  id                Int      @id @default(autoincrement())
+  content           MeetupContent   @relation(fields: [contentId], references: [id])
+  contentId         Int @unique
+  messages          String[]
+}
+
+model PostEventMessage {
+  id                Int      @id @default(autoincrement())
+  content           MeetupContent   @relation(fields: [contentId], references: [id])
+  contentId         Int @unique
+  message           String
+}
+
+model MeetupContent {
+  id                Int      @id @default(autoincrement())
+  location          String?
+  date              DateTime? @default(now())
+  host              String?
+  eventType         EventType?
+  eventDescription  String?
+  talks             MeetupTalk[]
+  meetupRSVPUrl     String?
+  createdAt         DateTime? @default(now())
+  updatedAt         DateTime?
+  descriptions      MeetupDescription[]
+  images            MeetupImage[]
+  shortMessages     MeetupShortMessage[]
+  longMessages      MeetupLongMessage[]
+  followUpEmails    MeetupEmail[]
+  postEventMessages PostEventMessage[]
+}
+
+enum EventType {
+  Talks
+  LightningTalks
+  Workshop
+  Discussion
+}

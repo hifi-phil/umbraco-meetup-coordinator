@@ -1,0 +1,3 @@
+**Prompt for DALL-E 3:**
+
+"Create a landscape-oriented illustration depicting a small, engaging meetup event focused on technology and cloud development. The scene should feature a diverse group of 15 to 25 people gathered in a modern, well-lit space, attentively listening to a speaker at the front. Include elements that suggest a tech theme, such as laptops, cloud icons, and abstract representations of cloud infrastructure like Terraform, Azure DevOps, and Kubernetes. The atmosphere should be vibrant and collaborative, capturing the essence of learning and networking within the Umbraco community. Avoid any text or specific branding; focus solely on the illustrative aspect of the event."
